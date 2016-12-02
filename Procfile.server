@@ -1,0 +1,2 @@
+middleman: middleman server
+webpack: webpack-dev-server --inline --hot --config webpack-dev.config.coffee

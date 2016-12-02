@@ -1,0 +1,39 @@
+doctype html
+html.no-js
+  head
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta charset="utf-8"
+    meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"
+
+    / Use title if it's in the page YAML frontmatter
+    title = "#{current_page.data.title} | HappyMan"
+    
+    link rel="author" href="/humans.txt"
+
+    - if production?
+      = stylesheet_link_tag :webpack_bundle
+
+  body
+    = partial 'components/main-header'      
+
+    .main-wrapper
+      .container
+        main role='main' class=(current_page.data.main_class || '')
+
+          == yield
+
+    = partial 'components/main-footer'
+
+    = partial 'components/drawer'
+    
+    = partial 'components/modal'
+
+    
+    script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+    
+    
+    - if development?
+      = javascript_include_tag 'http://localhost:8080/javascripts/webpack_bundle.js'
+    
+    - else
+      = javascript_include_tag :webpack_bundle
