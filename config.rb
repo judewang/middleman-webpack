@@ -29,8 +29,6 @@ page '/*.txt', layout: false
 
 # General configuration
 
-Slim::Engine.options[:pretty] = true
-
 # Run webpack with external_pipeline
 
 activate :external_pipeline,
