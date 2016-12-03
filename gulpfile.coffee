@@ -3,17 +3,12 @@ gulp     = require 'gulp'
 replace  = require 'gulp-replace'
 notify   = require 'gulp-error-notifier'
 
-pug      = require 'gulp-pug'
-browser  = require 'browser-sync'
-# responsive = require 'gulp-responsive'
-
-
 # 取得 publicPath
 { publicPath } = require './package.json'
 
 gulp.task 'resolve-url', ->
   sourcemap_pattern = /\/\*#\ssourceMappingURL.+\*\//ig
-  
+
   gulp.src path.join(".webpack", "stylesheets/webpack_bundle.+(css|scss)")
       .pipe notify.handleError replace(sourcemap_pattern, "")
       .pipe gulp.dest path.join(".webpack", "stylesheets")
