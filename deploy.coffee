@@ -9,7 +9,7 @@ start = () ->
       name: 'env'
       message: 'Choose deploy environment.'
       type: 'list'
-      choices: ['staging', 'production']
+      choices: ['staging', 'static_sources']
       default: 'staging'
     ,
       name: 'message'
