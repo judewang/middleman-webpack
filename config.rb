@@ -61,13 +61,12 @@ case ENV['TARGET'].to_s.downcase
 when 'staging'
   activate :deploy do |deploy|
     deploy.deploy_method = :git
-    deploy.remote = 'github-repository'
-    deploy.branch = 'gh-pages'
+    deploy.commit_message = ENV['MESSAGE'].to_s
   end
 else
   activate :deploy do |deploy|
     deploy.deploy_method = :git
-    deploy.remote = 'git-lab or other repository'
     deploy.branch = 'static'
+    deploy.commit_message = ENV['MESSAGE'].to_s
   end
 end
