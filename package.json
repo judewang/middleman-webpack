@@ -15,9 +15,11 @@
   "homepage": "https://github.com/judewang/middleman-webpack#readme",
   "publicPath": "/",
   "scripts": {
-    "start": "foreman start -f Procfile.server",
-    "dev-server": "webpack-dev-server --inline --hot --config webpack-dev.config.coffee",
-    "build": "webpack --config webpack.config.coffee"
+    "start": "bundle exec middleman",
+    "webpack-dev-server": "webpack-dev-server --colors --inline --hot --config webpack-dev.config.coffee",
+    "webpack": "webpack --config webpack.config.coffee",
+    "build": "bundle exec middleman build",
+    "build:staging": "TARGET=staging bundle exec middleman build"
   },
   "dependencies": {
     "modernizr": "^3.3.1",

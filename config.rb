@@ -35,7 +35,7 @@ Slim::Engine.options[:pretty] = true
 
 activate :external_pipeline,
   name: :webpack,
-  command: build? ? 'npm run build' : 'npm run dev-server',
+  command: build? ? 'npm run webpack' : 'npm run webpack-dev-server',
   source:  '.webpack',
   latency: 0
 
