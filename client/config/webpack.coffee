@@ -7,16 +7,21 @@ pkg = require path_to.package
 
 ExtractTextPlugin = require "extract-text-webpack-plugin"
 
+svgo_plugins = [
+  {cleanupIDs: on}
+  {removeTitle: on}
+  {removeComments: on}
+  {removeDesc: on}
+  {removeDimensions: on}
+  {removeUselessStrokeAndFill: on}
+]
+
 config =
   svg_sprite: JSON.stringify
     spriteModule: path.resolve path_to.root, "config/custom-sprite"
     name: 'icon-[name]'
   svgo: JSON.stringify
-    plugins: [
-      cleanupIDs: on
-      removeComments: on
-      removeDesc: on
-    ]
+    plugins: svgo_plugins.push {convertColors: {currentColor: on}}
 
 module.exports = (env) ->
   webpack_config =
@@ -56,20 +61,14 @@ module.exports = (env) ->
         include: path_to.icons
         loaders: [
           "svg-sprite?#{config.svg_sprite}"
-          "svgo?#{config.svgo}"
+          "image-webpack?{svgo: #{JSON.stringify config.svgo}}"
         ]
       ,
-        test: /\.svg$/i
+        test: /\.(png|jpe?g|gif|svg)$/i
         exclude: path_to.icons
         loaders: [
           "file?name=images/[name].[ext]"
-          "svgo?#{config.svgo}"
-        ]
-      ,
-        test: /\.(png|jpe?g|gif)$/i
-        loaders: [
-          "file?name=images/[name].[ext]"
-          "img?progressive=true"
+          "image-webpack"
         ]
       ,
         test: /\.modernizrrc$/
@@ -83,6 +82,16 @@ module.exports = (env) ->
     externals:
       "jquery": "jQuery"
       "$":      "jQuery"
+
+    imageWebpackLoader:
+      bypassOnDebug: on
+      mozjpeg:
+        quality: 70
+      pngquant:
+        quality: "65-90"
+        speed: 7
+      svgo:
+        plugins: svgo_plugins
 
     sassLoader:
       includePaths: [path_to.sass]
